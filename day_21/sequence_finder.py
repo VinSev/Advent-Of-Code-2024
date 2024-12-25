@@ -78,7 +78,5 @@ class DFS(SequenceFinder):
             direction_symbol, direction = AXES[axis][direction_index]
 
             self._current_sequence += direction_symbol
-
             self._dfs(movement_vector + direction, target)
-
             self._current_sequence = self._current_sequence[:-1]
