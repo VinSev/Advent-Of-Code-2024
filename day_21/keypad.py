@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from functools import lru_cache
 from typing import List, TYPE_CHECKING
 
-from key_constants import START
+from key_constants import START, EMPTY
 from point import Point
 
 if TYPE_CHECKING:
@@ -35,6 +35,14 @@ class Keypad(ABC):
                     return Point(x, y)
 
         raise ValueError(f'{target} not found')
+    
+    def is_valid(self, position: Point) -> bool:
+        return (self.is_out_of_bounds(position) or
+                self.get_value_in_keypad_layout(position) == EMPTY)
+
+    def is_out_of_bounds(self, position: Point) -> bool:
+        return (position.x < 0 or position.y < 0 or
+                position.x >= self.n_cols or position.y >= self.n_rows) 
 
 
 class HumanControlledKeypad(Keypad):

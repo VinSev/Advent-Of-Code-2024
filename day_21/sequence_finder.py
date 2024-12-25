@@ -54,7 +54,7 @@ class DFS(SequenceFinder):
     def _dfs(self, movement_vector: Point, target: Point) -> None:
         new_position = movement_vector + target
 
-        if self._is_valid(new_position):
+        if self._keypad.is_valid(new_position):
             return
 
         if movement_vector.x == 0 and movement_vector.y == 0:
@@ -82,11 +82,3 @@ class DFS(SequenceFinder):
             self._dfs(movement_vector + direction, target)
 
             self._current_sequence = self._current_sequence[:-1]
-
-    def _is_valid(self, position: Point) -> bool:
-        return (self._is_out_of_bounds(position) or
-                self._keypad.get_value_in_keypad_layout(position) == EMPTY)
-
-    def _is_out_of_bounds(self, position: Point) -> bool:
-        return (position.x < 0 or position.y < 0 or
-                position.x >= self._keypad.n_cols or position.y >= self._keypad.n_rows) 
